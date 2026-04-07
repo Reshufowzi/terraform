@@ -80,13 +80,6 @@ resource "aws_security_group" "my_sg" {
   }
 }
 
-# ---------------- Key Pair ----------------
-
-resource "aws_key_pair" "my_key1" {
-  key_name   = "terraform-key1"
-  public_key = file("~/.ssh/id_rsa.pub")
-}
-
 # ---------------- EC2 Instance ----------------
 
 resource "aws_instance" "my_ec2" {
@@ -95,7 +88,7 @@ resource "aws_instance" "my_ec2" {
   subnet_id              = aws_subnet.my_subnet.id
   vpc_security_group_ids = [aws_security_group.my_sg.id]
 
-  key_name = aws_key_pair.my_key1.key_name
+  key_name = "terraform-key1"
 
   tags = {
     Name = "terraform-instance"
